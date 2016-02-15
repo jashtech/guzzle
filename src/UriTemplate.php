@@ -46,7 +46,7 @@ class UriTemplate
 
         return preg_replace_callback(
             '/\{([^\}]+)\}/',
-            [$this, 'expandMatch'],
+            array($this, 'expandMatch'),
             $this->template
         );
     }
@@ -223,7 +223,16 @@ class UriTemplate
      */
     private function isAssoc(array $array)
     {
-        return $array && array_keys($array)[0] !== 0;
+        if (!$array) {
+            return false;
+        }
+        
+        $keys = array_keys($array);
+        if ($keys[0] !== 0) {
+            return false;
+        }
+        
+        return true;
     }
 
     /**
