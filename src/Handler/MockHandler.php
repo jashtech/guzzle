@@ -81,7 +81,7 @@ class MockHandler implements \Countable
             ? new RejectedPromise($response)
             : \GuzzleHttp\Promise\promise_for($response);
 
-        $this_object = $this;
+        $thisObject = $this;
         return $response->then(
             function ($value) use ($request, $options) {
                 $this->invokeStats($request, $options, $value);
@@ -103,10 +103,10 @@ class MockHandler implements \Countable
 
                 return $value;
             },
-            function ($reason) use ($request, $options, $this_object) {
+            function ($reason) use ($request, $options, $thisObject) {
                 $this->invokeStats($request, $options, null, $reason);
-                if ($this_object->getOnRejected()) {
-                    call_user_func($this_object->getOnRejected(), $reason);
+                if ($thisObject->getOnRejected()) {
+                    call_user_func($thisObject->getOnRejected(), $reason);
                 }
                 return new RejectedPromise($reason);
             }

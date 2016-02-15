@@ -72,10 +72,10 @@ class RetryMiddleware
 
     private function onFulfilled(RequestInterface $req, array $options)
     {
-        $this_object = $this;
-        return function ($value) use ($req, $options, $this_object) {
+        $thisObject = $this;
+        return function ($value) use ($req, $options, $thisObject) {
             if (!call_user_func(
-                $this_object->getDecider(),
+                $thisObject->getDecider(),
                 $options['retries'],
                 $req,
                 $value,
@@ -89,10 +89,10 @@ class RetryMiddleware
 
     private function onRejected(RequestInterface $req, array $options)
     {
-        $this_object = $this;
-        return function ($reason) use ($req, $options, $this_object) {
+        $thisObject = $this;
+        return function ($reason) use ($req, $options, $thisObject) {
             if (!call_user_func(
-                $this_object->getDecider(),
+                $thisObject->getDecider(),
                 $options['retries'],
                 $req,
                 null,
