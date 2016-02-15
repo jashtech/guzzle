@@ -29,9 +29,9 @@ class RetryMiddleware
      *                              delay.
      */
     public function __construct(
-        callable $decider,
-        callable $nextHandler,
-        callable $delay = null
+        $decider,
+        $nextHandler,
+        $delay = null
     ) {
         $this->decider = $decider;
         $this->nextHandler = $nextHandler;
@@ -72,9 +72,10 @@ class RetryMiddleware
 
     private function onFulfilled(RequestInterface $req, array $options)
     {
-        return function ($value) use ($req, $options) {
+        $this_object = $this;
+        return function ($value) use ($req, $options, $this_object) {
             if (!call_user_func(
-                $this->decider,
+                $this_object->getDecider(),
                 $options['retries'],
                 $req,
                 $value,
@@ -88,9 +89,10 @@ class RetryMiddleware
 
     private function onRejected(RequestInterface $req, array $options)
     {
-        return function ($reason) use ($req, $options) {
+        $this_object = $this;
+        return function ($reason) use ($req, $options, $this_object) {
             if (!call_user_func(
-                $this->decider,
+                $this_object->getDecider(),
                 $options['retries'],
                 $req,
                 null,
@@ -102,10 +104,15 @@ class RetryMiddleware
         };
     }
 
-    private function doRetry(RequestInterface $request, array $options)
+    public function doRetry(RequestInterface $request, array $options)
     {
         $options['delay'] = call_user_func($this->delay, ++$options['retries']);
 
         return $this($request, $options);
+    }
+    
+    public function getDecider()
+    {
+        return $this->decider;
     }
 }
