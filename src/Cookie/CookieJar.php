@@ -10,7 +10,7 @@ use Psr\Http\Message\ResponseInterface;
 class CookieJar implements CookieJarInterface
 {
     /** @var SetCookie[] Loaded cookie data */
-    private $cookies = [];
+    private $cookies = array();
 
     /** @var bool */
     private $strictMode;
@@ -22,7 +22,7 @@ class CookieJar implements CookieJarInterface
      *                           arrays that can be used with the SetCookie
      *                           constructor
      */
-    public function __construct($strictMode = false, $cookieArray = [])
+    public function __construct($strictMode = false, $cookieArray = array())
     {
         $this->strictMode = $strictMode;
 
@@ -108,7 +108,7 @@ class CookieJar implements CookieJarInterface
     public function clear($domain = null, $path = null, $name = null)
     {
         if (!$domain) {
-            $this->cookies = [];
+            $this->cookies = array();
             return;
         } elseif (!$path) {
             $this->cookies = array_filter(
@@ -235,7 +235,7 @@ class CookieJar implements CookieJarInterface
 
     public function withCookieHeader(RequestInterface $request)
     {
-        $values = [];
+        $values = array();
         $uri = $request->getUri();
         $scheme = $uri->getScheme();
         $host = $uri->getHost();
