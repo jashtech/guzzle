@@ -63,7 +63,7 @@ function describe_type($input)
  */
 function headers_from_lines($lines)
 {
-    $headers = [];
+    $headers = array();
 
     foreach ($lines as $line) {
         $parts = explode(':', $line, 2);
@@ -161,7 +161,7 @@ function default_user_agent()
 function default_ca_bundle()
 {
     static $cached = null;
-    static $cafiles = [
+    static $cafiles = array(
         // Red Hat, CentOS, Fedora (provided by the ca-certificates package)
         '/etc/pki/tls/certs/ca-bundle.crt',
         // Ubuntu, Debian (provided by the ca-certificates package)
@@ -175,7 +175,7 @@ function default_ca_bundle()
         // Windows?
         'C:\\windows\\system32\\curl-ca-bundle.crt',
         'C:\\windows\\curl-ca-bundle.crt',
-    ];
+    );
 
     if ($cached) {
         return $cached;
@@ -222,7 +222,7 @@ EOT
  */
 function normalize_header_keys(array $headers)
 {
-    $result = [];
+    $result = array();
     foreach (array_keys($headers) as $key) {
         $result[strtolower($key)] = $key;
     }
