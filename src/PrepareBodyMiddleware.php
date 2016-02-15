@@ -15,12 +15,12 @@ class PrepareBodyMiddleware
     private $nextHandler;
 
     /** @var array */
-    private static $skipMethods = ['GET' => true, 'HEAD' => true];
+    private static $skipMethods = array('GET' => true, 'HEAD' => true);
 
     /**
      * @param callable $nextHandler Next handler to invoke.
      */
-    public function __construct(callable $nextHandler)
+    public function __construct($nextHandler)
     {
         $this->nextHandler = $nextHandler;
     }
@@ -42,7 +42,7 @@ class PrepareBodyMiddleware
             return $fn($request, $options);
         }
 
-        $modify = [];
+        $modify = array();
 
         // Add a default content-type if possible.
         if (!$request->hasHeader('Content-Type')) {
