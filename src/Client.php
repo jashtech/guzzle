@@ -80,7 +80,7 @@ class Client implements ClientInterface
         }
 
         $uri = $args[0];
-        $opts = isset($args[1]) ? $args[1] : [];
+        $opts = isset($args[1]) ? $args[1] : array();
 
         return substr($method, -5) === 'Async'
             ? $this->requestAsync(substr($method, 0, -5), $uri, $opts)

@@ -99,7 +99,8 @@ class StreamHandler
         $hdrs = $this->lastHeaders;
         $this->lastHeaders = array();
         $parts = explode(' ', array_shift($hdrs), 3);
-        $ver = explode('/', $parts[0])[1];
+        $ver = explode('/', $parts[0]);
+        $ver = $ver[1];
         $status = $parts[1];
         $reason = isset($parts[2]) ? $parts[2] : null;
         $headers = \GuzzleHttp\headers_from_lines($hdrs);
@@ -161,7 +162,7 @@ class StreamHandler
                         if ($length == 0) {
                             unset($headers[$normalizedKeys['content-length']]);
                         } else {
-                            $headers[$normalizedKeys['content-length']] = [$length];
+                            $headers[$normalizedKeys['content-length']] = array($length);
                         }
                     }
                 }

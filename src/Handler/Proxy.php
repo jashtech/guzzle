@@ -19,8 +19,8 @@ class Proxy
      * @return callable Returns the composed handler.
      */
     public static function wrapSync(
-        callable $default,
-        callable $sync
+        $default,
+        $sync
     ) {
         return function (RequestInterface $request, array $options) use ($default, $sync) {
             return empty($options[RequestOptions::SYNCHRONOUS])
@@ -43,8 +43,8 @@ class Proxy
      * @return callable Returns the composed handler.
      */
     public static function wrapStreaming(
-        callable $default,
-        callable $streaming
+        $default,
+        $streaming
     ) {
         return function (RequestInterface $request, array $options) use ($default, $streaming) {
             return empty($options['stream'])

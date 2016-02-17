@@ -65,9 +65,10 @@ class RedirectMiddleware
             return $fn($request, $options);
         }
 
+        $thisObject = $this;
         return $fn($request, $options)
-            ->then(function (ResponseInterface $response) use ($request, $options) {
-                return $this->checkRedirect($request, $options, $response);
+            ->then(function (ResponseInterface $response) use ($request, $options, $thisObject) {
+                return $thisObject->checkRedirect($request, $options, $response);
             });
     }
 

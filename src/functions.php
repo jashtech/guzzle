@@ -136,7 +136,8 @@ function default_user_agent()
     if (!$defaultAgent) {
         $defaultAgent = 'GuzzleHttp/' . Client::VERSION;
         if (extension_loaded('curl') && function_exists('curl_version')) {
-            $defaultAgent .= ' curl/' . \curl_version()['version'];
+            $curlVersion = \curl_version();
+            $defaultAgent .= ' curl/' . $curlVersion['version'];
         }
         $defaultAgent .= ' PHP/' . PHP_VERSION;
     }
@@ -257,7 +258,8 @@ function is_host_in_noproxy($host, array $noProxyArray)
 
     // Strip port if present.
     if (strpos($host, ':')) {
-        $host = explode($host, ':', 2)[0];
+        $host = explode($host, ':', 2);
+        $host = $host[0];
     }
 
     foreach ($noProxyArray as $area) {
